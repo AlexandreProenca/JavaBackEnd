@@ -15,5 +15,5 @@ nbproject/project.properties
 # Package Files #
 *.war
 *.ear
-
+.DS_Store
 
