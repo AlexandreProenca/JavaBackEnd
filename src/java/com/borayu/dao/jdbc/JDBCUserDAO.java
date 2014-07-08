@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,10 +39,11 @@ public class JDBCUserDAO implements IUser{
     
     @Override
     public void add(User user) {
-           String sql = "INSERT INTO public.user (login,passwd,email2,lastlogin,created,state) values (?,?,?,?,?)";
+           String sql = "INSERT INTO public.user (login,passwd,email2,lastlogin,created,status) values (?,?,?,?,?,?)";
+           ResultSet generatedKeys = null;
         try {
             //prepara
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPasswd());
             ps.setString(3, user.getEmail2());
@@ -51,9 +53,17 @@ public class JDBCUserDAO implements IUser{
 
             //executa
             ps.execute();
+            
+            generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                user.setId(generatedKeys.getLong(1));
+            } else {
+                throw new SQLException("Creating user failed, no generated key obtained.");
+            }
 
             //fecha
             ps.close();
+            generatedKeys.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(JDBCUserDAO.class.getName()).log(Level.SEVERE, null, ex);

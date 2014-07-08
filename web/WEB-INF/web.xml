@@ -12,7 +12,7 @@
                 
                 <init-param>
                         <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
-                        <param-value>com.borayu.filter.CORSFilter</param-value>
+                        <param-value>com.borayu.filter.CORSResponseFilter</param-value>
                 </init-param>
                  
                  
@@ -31,6 +31,6 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-        
+
     
 </web-app>

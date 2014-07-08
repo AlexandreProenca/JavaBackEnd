@@ -67,7 +67,8 @@ public class UserResource {
         } catch (Exception e) {
             throw new WebApplicationException(e, 403);
         }
-        return Response.created(URI.create("/" + user.getId())).build();
+        Response response = Response.created(URI.create("/" + user.getId())).build();
+        return response;
     }
 
     @DELETE
