@@ -6,8 +6,6 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-nbproject/ant-deploy.xml
-nbproject/project.properties
 
 # Class Files #
 *.class
@@ -16,4 +14,3 @@ nbproject/project.properties
 *.war
 *.ear
 .DS_Store
-
