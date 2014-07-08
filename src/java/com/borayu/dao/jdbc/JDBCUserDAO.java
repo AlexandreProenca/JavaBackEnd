@@ -183,7 +183,38 @@ public class JDBCUserDAO implements IUser{
 
     @Override
     public void update(User user) {
-        
+          
+           String sql = "UPDATE public.user SET login=?, passwd=?, email2=?, lastlogin=?,created=?,status=? WHERE id=?";
+           
+        try {
+            //prepara
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPasswd());
+            ps.setString(3, user.getEmail2());
+            ps.setDate(4, data);
+            ps.setDate(5, data);
+            ps.setString(6, "ACTIVE");
+            ps.setLong(7, user.getId());
+
+            //executa
+            ps.executeUpdate();
+            
+            //fecha
+            ps.close();
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(JDBCUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
 }
