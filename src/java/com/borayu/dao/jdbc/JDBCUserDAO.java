@@ -224,5 +224,47 @@ public class JDBCUserDAO implements IUser{
             }
         }
     }
+
+    @Override
+    public User checkLogin(User user) {
+        String sql = "SELECT * FROM public.user WHERE email=? AND password=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPassword());
+            ResultSet rs = ps.executeQuery();
+
+            User userNew = null;
+            boolean hasMore = rs.next();
+            if(hasMore){
+                userNew = new User();
+                userNew.setId(rs.getLong("id"));
+                userNew.setName(rs.getString("name"));
+                userNew.setEmail(rs.getString("email"));
+                userNew.setEmail2(rs.getString("email2"));
+                userNew.setRole(rs.getString("role"));
+                userNew.setPassword(rs.getString("password"));
+                userNew.setCreated(rs.getDate("created"));
+                userNew.setLastlogin(rs.getDate("lastlogin"));
+                userNew.setStatus(rs.getString("status"));
+            }
+            
+            ps.close();
+            rs.close();
+
+            return userNew;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(JDBCUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
     
 }

@@ -18,4 +18,5 @@ public interface IUser {
     public User get(Long id);
     public List<User> getList();
     public void update(User user);
+    public User checkLogin(User user);
 }
