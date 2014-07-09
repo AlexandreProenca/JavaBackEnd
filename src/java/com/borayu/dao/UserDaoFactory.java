@@ -7,8 +7,6 @@
 package com.borayu.dao;
 import com.borayu.dao.interfaces.IUser;
 import com.borayu.dao.jdbc.JDBCUserDAO;
-import com.borayu.dao.jpa.JpaUserDao;
-import com.borayu.model.User;
 
 /**
  *

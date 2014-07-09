@@ -1,6 +1,5 @@
 package com.borayu.dao;
 
-import com.borayu.dao.interfaces.IUser;
 import com.borayu.dao.interfaces.IUserEntity;
 import com.borayu.dao.jpa.JpaUserDao;
 import com.borayu.search.CompassManager;

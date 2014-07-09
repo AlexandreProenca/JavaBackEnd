@@ -1,7 +1,6 @@
 package com.borayu.dao.jpa;
 
 import com.borayu.dao.interfaces.IUserEntity;
-import com.borayu.dao.PersistenceManager;
 import com.borayu.exception.ItemAlreadyExistException;
 import com.borayu.exception.UnknownItemException;
 import com.borayu.model.entity.UserEntity;

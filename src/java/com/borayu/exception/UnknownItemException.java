@@ -2,8 +2,8 @@ package com.borayu.exception;
 
 public class UnknownItemException extends RuntimeException {
 
-	private Class<?> clazz;
-	private Object id;
+	private final Class<?> clazz;
+	private final Object id;
 	
 	public UnknownItemException(Class<?> clazz, Object id) {
 		super(clazz.getName() + " with id=" + id + " doesn't exist.");

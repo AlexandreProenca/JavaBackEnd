@@ -4,18 +4,11 @@
  */
 package com.borayu.resource;
 
-import com.borayu.dao.DaoFactory;
-import com.borayu.dao.PersistenceManager;
-import com.borayu.dao.interfaces.IUserEntity;
 import com.borayu.dao.jdbc.JDBCUserDAO;
-import com.borayu.dao.jpa.JpaUserDao;
 import com.borayu.model.User;
-import com.borayu.model.entity.UserEntity;
 import com.google.gson.Gson;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -35,7 +28,7 @@ public class UserResource {
 
     //private IUserEntity userEntityDao;
     
-    private JDBCUserDAO dataBase = new JDBCUserDAO();
+    private final JDBCUserDAO dataBase = new JDBCUserDAO();
 
     //private JpaUserDao jpaUser = new JpaUserDao();
     //public UserResource() {

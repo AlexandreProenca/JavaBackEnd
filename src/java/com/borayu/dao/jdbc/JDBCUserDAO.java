@@ -166,9 +166,8 @@ public class JDBCUserDAO implements IUser{
             pstmt.close();
             rs.close();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao listar todos os clientes: " + e);
-            e.printStackTrace();
             return null;
         } finally {
 
