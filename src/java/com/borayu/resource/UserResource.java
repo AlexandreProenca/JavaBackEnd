@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -66,7 +67,7 @@ public class UserResource {
 
     @DELETE
     @Path("{id}")
-    public void removeUser(@PathParam("id") int id) {
+    public void removeUser(@PathParam("id") Long id) {
         try {
             dataBase.remove(id);
         } catch (Exception e) {
@@ -77,10 +78,23 @@ public class UserResource {
     @GET
     @Path(value = "{id}")
     @Produces(value = "application/json")
-    public String getUser(@PathParam("id") int id) {
+    public String getUser(@PathParam("id") Long id) {
         User user = dataBase.get(id);
         Gson gson = new Gson();
         return gson.toJson(user);
 
+    }
+    
+    @PUT
+    @Path("{id}")
+    public Response update(@PathParam("id") Long id,User user) {
+        user.setId(id);
+        try {
+            dataBase.update(user);
+        } catch (Exception e) {
+            throw new WebApplicationException(e, 403);
+        }
+        Response response = Response.created(URI.create("/" + user.getId())).build();
+        return response;
     }
 }

@@ -39,17 +39,19 @@ public class JDBCUserDAO implements IUser{
     
     @Override
     public void add(User user) {
-           String sql = "INSERT INTO public.user (login,passwd,email2,lastlogin,created,status) values (?,?,?,?,?,?)";
-           ResultSet generatedKeys = null;
+           String sql = "INSERT INTO public.user (name,email,email2,role,password,created, lastlogin, status) values (?,?,?,?,?,?,?,?)";
+           ResultSet generatedKeys;
         try {
             //prepara
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPasswd());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
             ps.setString(3, user.getEmail2());
-            ps.setDate(4, data);
-            ps.setDate(5, data);
-            ps.setString(6, "ACTIVE");
+            ps.setString(4, user.getRole());
+            ps.setString(5, user.getPassword());
+            ps.setDate(6, data);
+            ps.setDate(7, data);
+            ps.setString(8, "ACTIVE");
 
             //executa
             ps.execute();
@@ -79,12 +81,12 @@ public class JDBCUserDAO implements IUser{
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(Long id) {
          String sql = "DELETE FROM public.user WHERE id=?";
         try {
             //prepara
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setLong(1, id);
 
             //executa
             ps.executeUpdate();
@@ -105,13 +107,13 @@ public class JDBCUserDAO implements IUser{
     }
 
     @Override
-    public User get(int id) {
+    public User get(Long id) {
         //String sql = "SELECT * FROM user WHERE id=?";
         String sql = "SELECT * FROM public.user WHERE id=?";
         try {
             //prepara
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
 
             //tras p primeiro resultado
@@ -119,11 +121,13 @@ public class JDBCUserDAO implements IUser{
             User user = new User();
 
             user.setId(rs.getLong("id"));
-            user.setLogin(rs.getString("login"));
-            user.setPasswd(rs.getString("passwd"));
+            user.setName(rs.getString("name"));
+            user.setEmail(rs.getString("email"));
             user.setEmail2(rs.getString("email2"));
-            user.setLastlogin(rs.getDate("lastlogin"));
+            user.setRole(rs.getString("role"));
+            user.setPassword(rs.getString("password"));
             user.setCreated(rs.getDate("created"));
+            user.setLastlogin(rs.getDate("lastlogin"));
             user.setStatus(rs.getString("status"));
             ps.close();
             rs.close();
@@ -155,11 +159,13 @@ public class JDBCUserDAO implements IUser{
                 User user = new User();
 
                 user.setId(rs.getLong("id"));
-                user.setLogin(rs.getString("login"));
-                user.setPasswd(rs.getString("passwd"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
                 user.setEmail2(rs.getString("email2"));
-                user.setLastlogin(rs.getDate("lastlogin"));
+                user.setRole(rs.getString("role"));
+                user.setPassword(rs.getString("password"));
                 user.setCreated(rs.getDate("created"));
+                user.setLastlogin(rs.getDate("lastlogin"));
                 user.setStatus(rs.getString("status"));
                 users.add(user);
             }
@@ -183,18 +189,21 @@ public class JDBCUserDAO implements IUser{
     @Override
     public void update(User user) {
           
-           String sql = "UPDATE public.user SET login=?, passwd=?, email2=?, lastlogin=?,created=?,status=? WHERE id=?";
+           String sql = "UPDATE public.user SET name=?, email=?, email2=?, role=?, password=?, lastlogin=?, status=? WHERE id=?";
            
         try {
             //prepara
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPasswd());
+            
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
             ps.setString(3, user.getEmail2());
-            ps.setDate(4, data);
-            ps.setDate(5, data);
-            ps.setString(6, "ACTIVE");
-            ps.setLong(7, user.getId());
+            ps.setString(4, user.getRole());
+            ps.setString(5, user.getPassword());
+            ps.setDate(6, data);
+            ps.setString(7, "ACTIVE");
+            
+            ps.setLong(8, user.getId());
 
             //executa
             ps.executeUpdate();

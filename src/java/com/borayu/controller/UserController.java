@@ -36,23 +36,23 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
     
        
-       List<User> users = new ArrayList<User>(); 
-       IUser jpa = UserDaoFactory.createUserDao("jpa");
-       User user = new User();
-               
-       user.setLogin(request.getParameter("login"));
-       user.setPasswd(request.getParameter("passwd"));
-       user.setEmail2(request.getParameter("email2"));
-       user.setLastlogin(data);
-       user.setCreated(data);
-       user.setStatus(request.getParameter("status"));
-              
-       jpa.add(user);
-        
-       users = jpa.getList();
-       
-       RequestDispatcher rd = request.getRequestDispatcher("usuario.jsp?usuarios="+users);
-       rd.forward(request, response);
+//       List<User> users = new ArrayList<User>(); 
+//       IUser jpa = UserDaoFactory.createUserDao("jpa");
+//       User user = new User();
+//               
+//       user.setLogin(request.getParameter("login"));
+//       user.setPasswd(request.getParameter("passwd"));
+//       user.setEmail2(request.getParameter("email2"));
+//       user.setLastlogin(data);
+//       user.setCreated(data);
+//       user.setStatus(request.getParameter("status"));
+//              
+//       jpa.add(user);
+//        
+//       users = jpa.getList();
+//       
+//       RequestDispatcher rd = request.getRequestDispatcher("usuario.jsp?usuarios="+users);
+//       rd.forward(request, response);
        
     
     }

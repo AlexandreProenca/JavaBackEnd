@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface IUser {
     public void add(User user);
-    public void remove(int id);
-    public User get(int id);
+    public void remove(Long id);
+    public User get(Long id);
     public List<User> getList();
     public void update(User user);
 }
