@@ -98,15 +98,4 @@ public class UserResource {
         return response;
     }
     
-    //TODO: Teminar - colocar na rota /login que não e' aqui em /users
-    public String login(User user){
-        User completeUser = null;
-        try {
-            completeUser = dataBase.checkLogin(user);
-        } catch (Exception e) {
-            throw new WebApplicationException(e, 403);
-        }
-        Gson gson = new Gson();
-        return gson.toJson(completeUser);
-    }
 }
