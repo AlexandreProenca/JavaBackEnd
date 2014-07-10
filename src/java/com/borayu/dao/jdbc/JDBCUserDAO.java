@@ -235,8 +235,8 @@ public class JDBCUserDAO implements IUser{
             ResultSet rs = ps.executeQuery();
 
             User userNew = null;
-            boolean hasMore = rs.next();
-            if(hasMore){
+            
+            if(rs.next()){
                 userNew = new User();
                 userNew.setId(rs.getLong("id"));
                 userNew.setName(rs.getString("name"));
